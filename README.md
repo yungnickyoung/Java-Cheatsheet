@@ -27,7 +27,7 @@ tmp.demoMethod();
 | No access modifiers | Access modifiers OK. Visible to all methods & constructors in class. | Access modifiers OK. Visible to all methods & constructors in class. |
 | No default values. | Have default values. | Have default values. |
 
-### Access Modifiers
+### Access Modifiers and Visibility
 |  | **Public**| **Protected** | **Default**  | **Private**  |
 |:---:|:---:|:---:|:---:|:---:|
 | Same Class                     | Y | Y | Y | Y |
