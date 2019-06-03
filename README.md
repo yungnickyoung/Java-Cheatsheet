@@ -41,3 +41,35 @@ tmp.demoMethod();
 - Methods declared `protected` in superclass must be `public` or `protected` in subclasses
 - Private methods are not inherited
 
+### `final` Keyword
+#### Variables
+- Can be initialized only once
+- A reference variable declared `final` can never be reassigned to refer to a different object. However, the data within the object can be changed (unless it is also `final`). In other words, the state of the object can be changed, but not the reference.
+
+#### Methods
+- Cannot be overriden by subclasses
+
+#### Classes
+- Cannot be subclassed. Thus, no features can be inherited.
+
+### `abstract` Keyword
+#### Methods
+- Have no implementation. Implementation is provided by subclass.
+- Can never be `final` or `strict`
+- Any class that extends an `abstract` class must implement **all** of its `abstract` methods, unless the subclass is also `abstract`
+
+#### Classes
+- Can never be instantiated
+- Cannot be both `abstract` and `final` (there is an obvious conflict of purpose between those two keywords)
+- If a class contains `abstract` methods, the class **must** be declared as `abstract`
+- An `abstract` class may have `abstract` as well as other methods
+- An `abstract` class doesn't have to have `abstract` methods.
+
+### `synchronized` Keyword
+Indicates a method can only be accessed by one thread at a time
+
+### `transient` Keyword
+An instance variable marked as `transient` tells the JVM to skip that variable when serializing the object containing it
+
+### `volatile` Keyword
+Tells the JVM that a thread accessing the variable must merge its own private copy of the variable with the master copy in memory. `volatile` can only be used on instance variables.
