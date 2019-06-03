@@ -266,3 +266,32 @@ Thus, an interfact with no methods is a **tagging interface**.
 These have two basic design purposes:  
 1. Creates a common parent
 2. Adds a data type to a class. A class that implements a tagging interface becomes an interface type through polymorphism
+
+## Java Generics
+```java
+public static <E> void printArray(E[] array) {
+    for (E element : array)
+        System.out.print(element + " ");
+}
+...
+// Example usage:
+Integer[] intArr = {1, 2, 3};
+Double[] doubleArr = {1.1, 2.2, 3.3};
+
+printArray(intArr);
+printArray(doubleArr);
+```
+
+You can also bound the type of the Generic parameters, e.g.  
+```java
+public static <T extends Comparable<T>> T max(T x, T y) { ... }
+```
+
+Can be applied to Generic classes as well, e.g.  
+```java
+public class Box<T> {
+    private T t;
+    ....
+ }
+ ```
+
