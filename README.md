@@ -329,3 +329,42 @@ try {
 }
 ```
 The return value of `readObject()` should be cast to the proper class.
+
+## Multithreading
+Lifecycle of a thread:
+- **New:** a new thread begins in this state where it remains until the program starts the thread
+- **Runnable:** executing its task
+- **Waiting:** waiting for another thread to finish a task
+- **Timed Waiting:** waiting for a certain amount of time
+- **Terminaed:** dead
+
+Thread priorities range from `MIN_PRIORITY` (a constant of 1) to `MAX_PRIORITY` (a constant of 10).
+
+There are two ways of creating a thread:
+1. Implement the `Runnable` interface
+  - If you want a class to be executed as a thread, it must implement `Runnable`. This method takes three basic steps:
+    1. Implement a `run()` method
+    2. Instantiate a `Thread` object, like so: `Thread (Runnable threadObj, String threadName)`, where threadObj is an instance of a class that implements `Runnable`, and threadName is the name given to the new thread
+    3. Start a Thread object with `start()`, which executes a class to the class's `run()` method
+2. Extend the `Thread` class
+  - This approach provides more flexibility in handling multiple threads created using available methods in the `Thread` class.
+    1. Override the `run()` method in `Thread` class
+    2. After creating the `Thread` object, start it with the `start()` method
+    
+### Thread Synchronization
+What if two threads try to access the same resources? For example, if multiple threads try to write to the same file at the same time, they could corrupt the file.
+
+**Monitors** allow us to make sure only one thread can access a shared resource at a time. Each object in Java has a monitor associated with it, which a thread can lock or unlock. Only one thread at a time may hold a lock on a monitor.
+
+Use a `synchronized` block to contain shared data.
+
+### Inter-thread Communication
+Threads can be built to exchange information using three simple methods:
+  1. `public void wait()` -- causes the current thread to wait until another thread invokes `notify()`
+  2. `public void notify()` -- wakes up a single thread that is waiting on the object's monitor
+  3. `public void notifyAll()` -- wakes up all threads that called `wait()` on the same object
+  
+All three methods can **only** be called from within a `synchronized` context.
+
+#### Thread Deadlock
+Situation where two or more threads are blocked forever, waiting for each other. Occurs when multiple threads need the same locks, but obtain them in a different order. Obviously, we want to **avoid this!**
