@@ -208,3 +208,30 @@ Rules for overriding methods (NOT overloading!)
 - A `static` method can be redeclared, but not overridden
 - If a method cannot be inherited, it cannot be overriden
 - Constructors cannot be overriden
+
+## Polymorphism
+- Any object that can pass an IS-A test is polymorphic
+  - All objects are polymorphic to the `Object` class
+- Objects can **only** be accessed through reference variables
+  - A reference variable can only be of one type, and that type cannot be changed once declared. However, the reference variable can be reassigned to other objects (given that it is not `final`)
+    - The type of a reference variable determines the methods it can invoke on an object
+    - A reference variable can refer to any object of its declared type or any subtype
+    - A reference variable can be declared as a class or interface type
+    
+Example:
+Given the following:  
+```java
+public interface Vegetarian { ... }
+public class Animal { ... }
+public class Deer extends Animal implements Vegetarian { ... }
+```
+then a Deer IS-A Animal, Vegetarian, Deer, and Object
+
+Thus the following are all legal:
+```java
+Deer d = new Deer();
+Animal a = d;
+Vegetarian v = d;
+Object o = d;
+```
+All four of these references refer to the same Deer object on the heap.
