@@ -73,6 +73,20 @@ Indicates a method can only be accessed by one thread at a time
 ### `transient` Keyword
 An instance variable marked as `transient` tells the JVM to skip that variable when serializing the object containing it
 
+### `throws` Keyword
+Used to postpone the handling of a checked (compile-time) exception.
+E.g.
+```java
+import java.io.*;
+public class className {
+    public void deposit(double amount) throws RemoteException, InsufficientFundsException {
+        // Method implementation ...
+        throw new RemoteException();
+    }
+    ...
+}
+```
+
 ### `volatile` Keyword
 Tells the JVM that a thread accessing the variable must merge its own private copy of the variable with the master copy in memory. `volatile` can only be used on instance variables.
 
@@ -139,3 +153,58 @@ Similarly, the reverse operation is called **unboxing**.
 
 ## Java Collections Framework
 ![alt text](https://media.geeksforgeeks.org/wp-content/uploads/java-collection.jpg "Java Collections Framework")
+
+## Exceptions
+Three types:
+1. **Checked Exceptions:** Notified by the compiler at compile-time
+2. **Unchecked Exceptions:** Runtime Exceptions
+3. **Errors:** Problems that arise beyond the control of the user and programmer, e.g. stack overflow
+
+### Exception Hierarchy
+![alt text](http://cdncontribute.geeksforgeeks.org/wp-content/uploads/Exception-in-java1.png "Java Exceptions Hierarchy")
+
+![alt text](http://www.benchresources.net/wp-content/uploads/2017/02/exception-hierarchy-in-java.png "Java Exceptions Hierarchy")
+
+### try-with-resources
+Automatically closes the resources used, e.g.
+```java
+try (FileReader fr = new FileReader(filepath)) {
+    // use the resource
+} catch () {
+    // handle the exception
+}
+```
+
+### User-defined Exceptions
+- Must be a child of `Throwable`
+- If checked exception, must extend `Exception`
+- If unchecked exception, must extend `RuntimeException`
+
+## Nested Classes
+Types of nested classes:
+```
+                                Nested classes
+                                      |
+                   ___________________|__________________
+                  |                                      |
+            Inner classes                      Static nested classes
+    ______________|_________________
+   |              |                 |
+ Inner      Method-local        Anonymous
+classes     inner classes     inner classes
+```
+
+**Java does NOT support multiplhe inheritance.**  
+This means a class cannot inherit multiple classes.  
+However, a class **can** implement multiple interfaces.
+
+## Method Overriding
+Rules for overriding methods (NOT overloading!)
+- The argument list must be the same
+- The return type must be the same or a subtype of the return type declared in the overriden method
+- The access level cannot be more restrictive than the overidden method's
+- Instance methods can only be overridden if they are inherited by the subclass
+- `final` methods cannot be overriden
+- A `static` method can be redeclared, but not overridden
+- If a method cannot be inherited, it cannot be overriden
+- Constructors cannot be overriden
