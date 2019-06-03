@@ -1,6 +1,6 @@
 # Java Notes
 
-### Singleton Class
+## Singleton Class
 Controls object creation, limiting # of objects to only one. Since there is only one instance, instance fields will occur once per class, similar to static fields.  
 Singletons often control access to resources like database connections or sockets.  
 ```java
@@ -19,7 +19,7 @@ Singleton tmp = Singleton.getInstance();
 tmp.demoMethod();
 ```
     
-### Scope of Variables
+## Scope of Variables
 | **Local**| **Instance** | **Class/Static**  |
 | --- |---|---|
 | Declared in methods, constructors, or blocks| Declared in a class, but outside a method/block | Same as instance, but with `static` keyword |
@@ -27,7 +27,7 @@ tmp.demoMethod();
 | No access modifiers | Access modifiers OK. Visible to all methods & constructors in class. | Access modifiers OK. Visible to all methods & constructors in class. |
 | No default values. | Have default values. | Have default values. |
 
-### Access Modifiers and Visibility
+## Access Modifiers and Visibility
 |  | **Public**| **Protected** | **Default**  | **Private**  |
 |:---:|:---:|:---:|:---:|:---:|
 | Same Class                     | Y | Y | Y | Y |
@@ -41,6 +41,8 @@ tmp.demoMethod();
 - Methods declared `protected` in superclass must be `public` or `protected` in subclasses
 - Private methods are not inherited
 
+
+## Keywords
 ### `final` Keyword
 #### Variables
 - Can be initialized only once
@@ -74,7 +76,21 @@ An instance variable marked as `transient` tells the JVM to skip that variable w
 ### `volatile` Keyword
 Tells the JVM that a thread accessing the variable must merge its own private copy of the variable with the master copy in memory. `volatile` can only be used on instance variables.
 
-### Bitwise Operations
+## Bitwise Operations
+### Width vs. Possible Values
+The number of bits used (width) determines the numbers that can be encoded: 2^n total.
+- Unsigned: 0 through 2^n - 1
+- 2's Complement: -2^(n-1) through 2^(n-1) - 1
+
+### Numerical primitives
+- **byte:** 8 bits, e.g. from -128 to 127
+- **short:** 16 bits
+- **char:** *unsigned* 16 bits
+- **int:** 32 bits
+- **long:** 64 bits
+
+### Operators
+
 For the following examples, assume a = 60, b = 13, c= -2. Their binary 2's complement representations are below.  
 a = 0011 1100  
 b = 0000 1101  
@@ -89,3 +105,37 @@ c = 1111 1110
 | <<  |Left shift                     | a << 2 = 1111 0000 (-16 in 2's complement) |
 | >>  |Arithmetic shift right         | c >> 2 = 1111 1111 (-1) |
 | >>> |Logical shift right (zero-fill)| c >>> 2 = 0111 1111 (127) |
+
+### Useful Tricks
+- **XOR**
+  - x ^ 0 = x
+  - x ^ 1 = ~x
+  - x ^ x = 0
+- **AND**
+  - x & 0 = 0
+  - x & 1 = x
+  - x & x = x
+- **OR**
+  - x \| 0 = x
+  - x \| 1 = 1
+  - x \| x = x
+- Swapping two values without a temporary variable:
+  - a = a ^ b
+  - b = a ^ b
+  - a = a ^ b
+  - E.g. a = 2, b = 3; a = 0010, b = 0011
+
+## `Number` Wrapper Classes
+```
+                   Number
+                     |
+  ___________________|_________________
+ |       |       |       |      |      |
+Byte  Integer  Double  Short  Float  Long
+```
+
+Converting primitive data types into objects is called **boxing**.  
+Similarly, the reverse operation is called **unboxing**.
+
+## Java Collections Framework
+![alt text](https://media.geeksforgeeks.org/wp-content/uploads/java-collection.jpg "Java Collections Framework")
