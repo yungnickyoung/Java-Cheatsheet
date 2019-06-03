@@ -37,4 +37,8 @@ tmp.demoMethod();
 | Different Package Subclass | Y | Y | N | N |
 | Different Package Non-subclass | Y | N | N | N |
 
+- Classes & interfaces cannot be `private` or `protected`
+- Methods declared `public` in superclass must be `public` in all subclasses
+- Methods declared `protected` in superclass must be `public` or `protected` in subclasses
+- Private methods are not inherited
 
