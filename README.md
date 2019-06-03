@@ -235,3 +235,34 @@ Vegetarian v = d;
 Object o = d;
 ```
 All four of these references refer to the same Deer object on the heap.
+
+## Interfaces
+An interface may have abstract methods, default methods, static methods, constants, and nested types. Method bodies exist only for default and static methods.
+
+An interface contains behaviors that a class implements. All methods of an interface must be defined in the implementing class, unless the class itself is abstract.
+
+Interfaces are **similar** to classes in that:
+- They can contain any number of methods
+- Saved as InterfaceName.java
+
+Interfaces are **different** from classes in that:
+- Interfaces cannot be instantiated
+- Interfaces don't have constructors
+- All interface methods are *implicitly* abstract
+- An interface cannot have instance fields; only `static final` fields (constants)
+- An interface can extend multiple interfaces (classes can implement multiple interfaces - but they *cannot* extend multiple classes)
+
+Interfaces and their methods are implicitly `abstract`. Their methods are implicitly `public`.
+
+### Tagging Interfaces
+The most common use of extending interfaces occurs when the parent interface doesn't have any methods.
+Example:
+The MouseListener interface in `java.awt.event` extends `java.util.EventListener`, which is defined as follows:  
+```java
+package java.util;
+public interface EventListener {}
+```
+Thus, an interfact with no methods is a **tagging interface**.  
+These have two basic design purposes:  
+1. Creates a common parent
+2. Adds a data type to a class. A class that implements a tagging interface becomes an interface type through polymorphism
