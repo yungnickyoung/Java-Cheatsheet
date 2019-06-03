@@ -73,3 +73,19 @@ An instance variable marked as `transient` tells the JVM to skip that variable w
 
 ### `volatile` Keyword
 Tells the JVM that a thread accessing the variable must merge its own private copy of the variable with the master copy in memory. `volatile` can only be used on instance variables.
+
+### Bitwise Operations
+For the following examples, assume a = 60, b = 13, c= -2. Their binary 2's complement representations are below.  
+a = 0011 1100  
+b = 0000 1101  
+c = 1111 1110  
+
+| Operation | Function | Example |
+|:---:|:---:|---|
+| &   |AND                            | a&b = 0000 1100 (12) |
+| \|  |OR                             | a\|b = 0011 1101 (61) |
+| ^   |XOR                            | a^b = 0011 0001 (49) |
+| ~   |Complement (bitwise inversion) | ~a = 1100 0011 (-61 in 2's complement) |
+| <<  |Left shift                     | a << 2 = 1111 0000 (-16 in 2's complement) |
+| >>  |Arithmetic shift right         | c >> 2 = 1111 1111 (-1) |
+| >>> |Logical shift right (zero-fill)| c >>> 2 = 0111 1111 (127) |
