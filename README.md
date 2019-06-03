@@ -295,3 +295,37 @@ public class Box<T> {
  }
  ```
 
+## Serialization
+Serialization allows an object to be represented as a sequence of bytes that includes the object's data as well as info about the object's type and the types of data stored in the object.
+
+After a serialized object has been written to a file, it can be read from the file and deserialized to recreate the object in memory.
+
+For a class to be serialized, it must meet two conditions:
+1. It must implement the `java.io.Serializable` interface
+2. All of the fields must be serializable. If a field is not serializable, it must be marked with the `transient` keyword
+
+Example of serialization:
+```java
+try {
+    FileOutputStream fileOut = new FileOutputStream("/tmp/employee.ser");
+    ObjectOutputStream out = new ObjectOutputStream(fileOut);
+    out.writeObject(e); // Assume e is an Employee object
+    out.close();
+    fileOut.close();
+}
+```
+The data for object `e` is now saved in `/tmp/employee.ser`.  
+Note: convention is to use `.ser` (?)
+
+Example of deserialization:
+```java
+Employee e = null;
+try {
+    FileInputStream fileIn = new FileInputStream("/tmp/employee.ser");
+    ObjectInputStream in = new ObjectInputStream(fileIn);
+    e = (Employee)in.readObject();
+    in.close();
+    fileIn.close();
+}
+```
+The return value of `readObject()` should be cast to the proper class.
