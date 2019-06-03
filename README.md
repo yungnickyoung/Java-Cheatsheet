@@ -28,12 +28,12 @@ tmp.demoMethod();
 | No default values. | Have default values. | Have default values. |
 
 ### Access Modifiers
-|  | **Public**| **Protected** | **Private**  | **Default**  |
+|  | **Public**| **Protected** | **Default**  | **Private**  |
 |:---:|:---:|:---:|:---:|:---:|
-| Same Class | Y | Y |  |  |
-| Same Package Subclass | Y | Y | Y | Y |
-| Same Package Non-subclass | Y | Y | Y | N |
-| Different Package Subclass | Y | Y | N | N |
+| Same Class                     | Y | Y | Y | Y |
+| Same Package Subclass          | Y | Y | Y | N |
+| Same Package Non-subclass      | Y | Y | Y | N |
+| Different Package Subclass     | Y | Y | N | N |
 | Different Package Non-subclass | Y | N | N | N |
 
 - Classes & interfaces cannot be `private` or `protected`
