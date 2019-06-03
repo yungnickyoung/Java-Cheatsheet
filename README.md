@@ -1,5 +1,7 @@
 # Java Notes
 
+[Singleton Class](#singleton-class)
+
 ## Singleton Class
 Controls object creation, limiting # of objects to only one. Since there is only one instance, instance fields will occur once per class, similar to static fields.  
 Singletons often control access to resources like database connections or sockets.  
