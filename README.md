@@ -1,26 +1,36 @@
 # Java Notes
 
-[Singleton Class](#singleton-class)
+- [Scope of Variables](#scope-of-variables)
+- [Access Modifiers and Visibility](#access-modifiers-and-visibility)
+- [Keywords](#keywords)
+  - [`final`](#final-keyword)
+  - [`abstract`](#abstract-keyword)
+  - [`synchronized`](#synchronized-keyword)
+  - [`transient`](#transient-keyword)
+  - [`throws`](#throws-keyword)
+  - [`volatile`](#volatile-keyword)
+- [Bitwise Operations](#bitwise-operations)
+  - [Width vs. Possible Values](#width-vs-possible-values)
+  - [Numerical Primitives](#numerical-primitives)
+  - [Operators](#operators)
+  - [Useful Tricks](#useful-tricks)
+- [Exceptions](#exceptions)
+- [Nested Classes](#nested-classes)
+- [Polymorphism](#polymorphism)
+  - [Overriding Methods](#method-overriding)
+- [Interfaces](#interfaces)
+  - [Tagging Interfaces](#tagging-interfaces)
+- [Generics](#java-generics)
+- [Serialization](#serialization)
+- [Multithreading](#multithreading)
+  - [Thread Synchronization](#thread-synchronization)
+  - [Inter-thread Communication](#inter-thread-communication)
+- [Java Collections Framework](#java-collections-framework)
+- [Common Design Patterns](#common-design-patterns)
+  - [Singleton Class](#singleton-class)
+- [`Number` Wrapper Classes](#number-wrapper-classes)
 
-## Singleton Class
-Controls object creation, limiting # of objects to only one. Since there is only one instance, instance fields will occur once per class, similar to static fields.  
-Singletons often control access to resources like database connections or sockets.  
-```java
-public class Singleton {
-    private static Singleton singleton = new Singleton();
-    private Singleton () {} // private constructor prevents any other class from instantiating
-    
-    public static Singleton getInstance() { return singleton; }
-    protected static void demoMethod() { System.out.println("demo"); }
-}
-```
 
-Example usage:
-```java
-Singleton tmp = Singleton.getInstance();
-tmp.demoMethod();
-```
-    
 ## Scope of Variables
 | **Local**| **Instance** | **Class/Static**  |
 | --- |---|---|
@@ -141,21 +151,6 @@ c = 1111 1110
   - a = a ^ b
   - E.g. a = 2, b = 3; a = 0010, b = 0011
 
-## `Number` Wrapper Classes
-```
-                   Number
-                     |
-  ___________________|_________________
- |       |       |       |      |      |
-Byte  Integer  Double  Short  Float  Long
-```
-
-Converting primitive data types into objects is called **boxing**.  
-Similarly, the reverse operation is called **unboxing**.
-
-## Java Collections Framework
-![alt text](https://media.geeksforgeeks.org/wp-content/uploads/java-collection.jpg "Java Collections Framework")
-
 ## Exceptions
 Three types:
 1. **Checked Exceptions:** Notified by the compiler at compile-time
@@ -200,17 +195,6 @@ classes     inner classes     inner classes
 This means a class cannot inherit multiple classes.  
 However, a class **can** implement multiple interfaces.
 
-## Method Overriding
-Rules for overriding methods (NOT overloading!)
-- The argument list must be the same
-- The return type must be the same or a subtype of the return type declared in the overriden method
-- The access level cannot be more restrictive than the overidden method's
-- Instance methods can only be overridden if they are inherited by the subclass
-- `final` methods cannot be overriden
-- A `static` method can be redeclared, but not overridden
-- If a method cannot be inherited, it cannot be overriden
-- Constructors cannot be overriden
-
 ## Polymorphism
 - Any object that can pass an IS-A test is polymorphic
   - All objects are polymorphic to the `Object` class
@@ -237,6 +221,17 @@ Vegetarian v = d;
 Object o = d;
 ```
 All four of these references refer to the same Deer object on the heap.
+
+### Method Overriding
+Rules for overriding methods (NOT overloading!)
+- The argument list must be the same
+- The return type must be the same or a subtype of the return type declared in the overriden method
+- The access level cannot be more restrictive than the overidden method's
+- Instance methods can only be overridden if they are inherited by the subclass
+- `final` methods cannot be overriden
+- A `static` method can be redeclared, but not overridden
+- If a method cannot be inherited, it cannot be overriden
+- Constructors cannot be overriden
 
 ## Interfaces
 An interface may have abstract methods, default methods, static methods, constants, and nested types. Method bodies exist only for default and static methods.
@@ -370,3 +365,39 @@ All three methods can **only** be called from within a `synchronized` context.
 
 #### Thread Deadlock
 Situation where two or more threads are blocked forever, waiting for each other. Occurs when multiple threads need the same locks, but obtain them in a different order. Obviously, we want to **avoid this!**
+
+## Java Collections Framework
+![alt text](https://media.geeksforgeeks.org/wp-content/uploads/java-collection.jpg "Java Collections Framework")
+
+## Common Design Patterns
+### Singleton Class
+Controls object creation, limiting # of objects to only one. Since there is only one instance, instance fields will occur once per class, similar to static fields.  
+Singletons often control access to resources like database connections or sockets.  
+```java
+public class Singleton {
+    private static Singleton singleton = new Singleton();
+    private Singleton () {} // private constructor prevents any other class from instantiating
+    
+    public static Singleton getInstance() { return singleton; }
+    protected static void demoMethod() { System.out.println("demo"); }
+}
+```
+
+Example usage:
+```java
+Singleton tmp = Singleton.getInstance();
+tmp.demoMethod();
+```
+    
+
+## `Number` Wrapper Classes
+```
+                   Number
+                     |
+  ___________________|_________________
+ |       |       |       |      |      |
+Byte  Integer  Double  Short  Float  Long
+```
+
+Converting primitive data types into objects is called **boxing**.  
+Similarly, the reverse operation is called **unboxing**.
