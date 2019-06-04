@@ -28,6 +28,7 @@
 - [Common Design Patterns](#common-design-patterns)
   - [Singleton Class](#singleton-class)
 - [`Number` Wrapper Classes](#number-wrapper-classes)
+- [Cloning Arrays](#cloning-arrays)
 
 
 ## Scope of Variables
@@ -400,3 +401,20 @@ Byte  Integer  Double  Short  Float  Long
 
 Converting primitive data types into objects is called **boxing**.  
 Similarly, the reverse operation is called **unboxing**.
+
+## Cloning Arrays
+Two methods of copying an array are using `System.arraycopy()` and `clone()`.  
+An example of `System.arraycopy()`:
+```java
+int[] dest = new int[orig.length];
+System.arraycopy(orig, 0, dest, 0, orig.length);
+```
+
+An example of `clone()`:
+```java
+int[] dest = orig.clone();
+```
+
+Long story short, it seems the first method may be quicker on shorter arrays, but on larger datasets they have similar performance. Furthermore, `clone()` is much more compact and easy to read. Thus, tend to prefer `clone()`.
+
+For more information, see [this article](https://www.javaspecialists.eu/archive/Issue124.html).
