@@ -25,7 +25,9 @@
   - [Thread Synchronization](#thread-synchronization)
   - [Inter-thread Communication](#inter-thread-communication)
 - [Java Collections Framework](#java-collections-framework)
+  - [Overview](#overview)
   - [Maps](#maps)
+  - [ArrayList vs. Vector](#arraylist-vs-vector)
 - [Common Design Patterns](#common-design-patterns)
   - [Singleton Class](#singleton-class)
 - [`Number` Wrapper Classes](#number-wrapper-classes)
@@ -368,6 +370,7 @@ All three methods can **only** be called from within a `synchronized` context.
 Situation where two or more threads are blocked forever, waiting for each other. Occurs when multiple threads need the same locks, but obtain them in a different order. Obviously, we want to **avoid this!**
 
 ## Java Collections Framework
+### Overview
 ![alt text](https://media.geeksforgeeks.org/wp-content/uploads/java-collection.jpg "Java Collections Framework")
 
 ### Maps
@@ -415,6 +418,14 @@ The figure below summaries many of these differences.
 ║ synchronized ║              implementation is not synchronized               ║
 ╚══════════════╩═══════════════════════════════════════════════════════════════╝
 ```
+
+### ArrayList vs. Vector
+1. **Synchronization:** `Vector` is **synchronized**, which means only one thread can access it at a time, while `ArrayList` is not synchronized, which means multiple threads could read it at the same time.
+2. **Performance:** `ArrayList` is faster, as `Vector` incurs slight overhead in acquiring the lock.
+3. **Growth:** `Vector` and `ArrayList` both grow and shrink dynamically, but `ArrayList` increments **50%** of the current array size if the number of elements exceeds its capacity, while `Vector` increments **100%**.
+4. **Traversal:** `Vector` can use both `Enumeration` and `Iterator` for traversing elements, while `ArrayList` can only use `Iterator`.
+
+Generally, you'll want to use an `ArrayList`; in the single-threaded case it's a better choice, and in the multi-threaded case, you get better control over locking. Want to allow concurrent reads? Fine. Want to perform one synchronization for a batch of ten writes? Also fine. It does require a little more care on your end, but it's likely what you want. Also note that if you have an `ArrayList`, you can use the [`Collections.synchronizedList`](https://docs.oracle.com/javase/8/docs/api/java/util/Collections.html#synchronizedList-java.util.List-) function to create a synchronized list, thus getting you the equivalent of a `Vector`.
 
 ## Common Design Patterns
 ### Singleton Class
