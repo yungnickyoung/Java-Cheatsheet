@@ -336,7 +336,7 @@ Lifecycle of a thread:
 - **Runnable:** executing its task
 - **Waiting:** waiting for another thread to finish a task
 - **Timed Waiting:** waiting for a certain amount of time
-- **Terminaed:** dead
+- **Terminated:** dead
 
 Thread priorities range from `MIN_PRIORITY` (a constant of 1) to `MAX_PRIORITY` (a constant of 10).
 
