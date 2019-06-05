@@ -194,7 +194,7 @@ Types of nested classes:
 classes     inner classes     inner classes
 ```
 
-**Java does NOT support multiplhe inheritance.**  
+**Java does NOT support multiple inheritance.**  
 This means a class cannot inherit multiple classes.  
 However, a class **can** implement multiple interfaces.
 
