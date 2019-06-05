@@ -25,6 +25,7 @@
   - [Thread Synchronization](#thread-synchronization)
   - [Inter-thread Communication](#inter-thread-communication)
 - [Java Collections Framework](#java-collections-framework)
+  - [Maps](#maps)
 - [Common Design Patterns](#common-design-patterns)
   - [Singleton Class](#singleton-class)
 - [`Number` Wrapper Classes](#number-wrapper-classes)
@@ -368,6 +369,52 @@ Situation where two or more threads are blocked forever, waiting for each other.
 
 ## Java Collections Framework
 ![alt text](https://media.geeksforgeeks.org/wp-content/uploads/java-collection.jpg "Java Collections Framework")
+
+### Maps
+There are four commonly used map implementations in Java: HashMap, TreeMap, LinkedHashMap, and Hashtable.
+
+![alt text](https://www.programcreek.com/wp-content/uploads/2009/02/MapClassHierarchy-600x354.jpg "Map Overview")
+
+To summarize them:
+- **HashMap** makes no guarantees on the ordering of keys or values.
+- **TreeMap** will iterate according to the "natural ordering" of the keys according to their `compareTo()` method (or an externally supplied `Comparator`). Additionally, it implements the `SortedMap` interface, which contains methods that depend on this sort order. It is implemented via a red-black tree.
+- **LinkedHashMap** is a subclass of HashMap with a linked-list implementation. It will iterate in the order in which the entries were put into the map.
+- **Hashtable** is an obsolete class from the days of Java 1.1 before the collections framework existed. It should not be used anymore, because its API is cluttered with obsolete methods that duplicate functionality, and its methods are synchronized (which can decrease performance and is generally useless). Furthermore, in a `Hashtable`, neither the key nor value can be `null`. This is not the case with `HashMap`, which may have a single `null` key and multiple `null` values.
+  - Use [ConcurrentHashMap](https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/ConcurrentHashMap.html) instead of `Hashtable` when synchronization is needed.
+
+The figure below summaries many of these differences.
+```
+╔══════════════╦═════════════════════╦═══════════════════╦═════════════════════╗
+║   Property   ║       HashMap       ║      TreeMap      ║     LinkedHashMap   ║
+╠══════════════╬═════════════════════╬═══════════════════╬═════════════════════╣
+║ Iteration    ║  no guarantee order ║ sorted according  ║                     ║
+║   Order      ║ will remain constant║ to the natural    ║    insertion-order  ║
+║              ║      over time      ║    ordering       ║                     ║
+╠══════════════╬═════════════════════╬═══════════════════╬═════════════════════╣
+║  Get/put     ║                     ║                   ║                     ║
+║   remove     ║         O(1)        ║      O(log(n))    ║         O(1)        ║
+║ containsKey  ║                     ║                   ║                     ║
+╠══════════════╬═════════════════════╬═══════════════════╬═════════════════════╣
+║              ║                     ║   NavigableMap    ║                     ║
+║  Interfaces  ║         Map         ║       Map         ║         Map         ║
+║              ║                     ║    SortedMap      ║                     ║
+╠══════════════╬═════════════════════╬═══════════════════╬═════════════════════╣
+║              ║                     ║                   ║                     ║
+║     Null     ║       allowed       ║    only values    ║       allowed       ║
+║ values/keys  ║                     ║                   ║                     ║
+╠══════════════╬═════════════════════╩═══════════════════╩═════════════════════╣
+║              ║   Fail-fast behavior of an iterator cannot be guaranteed      ║
+║   Fail-fast  ║ impossible to make any hard guarantees in the presence of     ║
+║   behavior   ║           unsynchronized concurrent modification              ║
+╠══════════════╬═════════════════════╦═══════════════════╦═════════════════════╣
+║              ║                     ║                   ║                     ║
+║Implementation║      buckets        ║   Red-Black Tree  ║    double-linked    ║
+║              ║                     ║                   ║       buckets       ║
+╠══════════════╬═════════════════════╩═══════════════════╩═════════════════════╣
+║      Is      ║                                                               ║
+║ synchronized ║              implementation is not synchronized               ║
+╚══════════════╩═══════════════════════════════════════════════════════════════╝
+```
 
 ## Common Design Patterns
 ### Singleton Class
