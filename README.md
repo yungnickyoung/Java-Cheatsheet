@@ -262,7 +262,7 @@ The MouseListener interface in `java.awt.event` extends `java.util.EventListener
 package java.util;
 public interface EventListener {}
 ```
-Thus, an interfact with no methods is a **tagging interface**.  
+Thus, an interface with no methods is a **tagging interface**.  
 These have two basic design purposes:  
 1. Creates a common parent
 2. Adds a data type to a class. A class that implements a tagging interface becomes an interface type through polymorphism
