@@ -230,7 +230,57 @@ Rules for *overriding* methods (**NOT** overloading!)
 For more information, see [Static vs Dynamic Binding](#static-vs-dynamic-binding).
 
 ## Static vs Dynamic Binding
+Association of a method call to a method body is known as **binding**. There are two types of binding:
+1. **Static Binding** (aka Early Binding): Binding resolved at compile time
+2. **Dynamic Binding** (aka Late Binding): Binding resolved at run time
 
+In Java, static binding is used for the binding of `static`, `private`, and `final` methods. This is because these methods cannot be overridden, and thus calls to such methods are necessarily unambiguous. The type of the class these methods belong to can be determined at compile time.
+
+This is important to know, for example, in situations where you might call a `static` method via an object (all though this is generally ill-advised), like in the example below.
+
+```java
+class Human {
+   public static void walk() {
+       System.out.println("Human walks");
+   }
+}
+class Boy extends Human {
+   public static void walk(){
+       System.out.println("Boy walks");
+   }
+   
+   public static void main(String args[]) {
+       Human b = new Boy();    // Reference is type Human, object is type Boy
+       Human h = new Human();  // Reference is type Human, object is type Human
+       b.walk();  // Human walks
+       h.walk();  // Human walks
+   }
+}
+```
+
+On the other hand, dynamic binding is used when the compiler is not able to resolve the binding at compile time:
+
+```java
+class Human {
+   public void walk() {
+       System.out.println("Human walks");
+   }
+}
+class Boy extends Human {
+   public void walk(){
+       System.out.println("Boy walks");
+   }
+   
+   public static void main(String args[]) {
+       Human b = new Boy();    // Reference is type Human, object is type Boy
+       Human h = new Human();  // Reference is type Human, object is type Human
+       b.walk();  // Boy walks
+       h.walk();  // Human walks
+   }
+}
+```
+
+Note that, as detailed in the [Polymorphism](#polymorphism) section, the binding of *overloaded* methods is static, while the binding of *overridden* methods is dynamic.
 
 ## Interfaces
 An interface may have abstract methods, default methods, static methods, constants, and nested types. Method bodies exist only for default and static methods.
