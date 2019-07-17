@@ -1,24 +1,20 @@
 ## Table of Contents
 - [Scope of Variables](#scope-of-variables)
 - [Access Modifiers and Visibility](#access-modifiers-and-visibility)
-- [Keywords](#keywords)
-  - [`final`](#final-keyword)
-  - [`abstract`](#abstract-keyword)
-  - [`synchronized`](#synchronized-keyword)
-  - [`transient`](#transient-keyword)
-  - [`throws`](#throws-keyword)
-  - [`volatile`](#volatile-keyword)
 - [Bitwise Operations](#bitwise-operations)
   - [Width vs. Possible Values](#width-vs-possible-values)
   - [Numerical Primitives](#numerical-primitives)
   - [Operators](#operators)
   - [Useful Tricks](#useful-tricks)
 - [Exceptions](#exceptions)
-- [Nested Classes](#nested-classes)
 - [Polymorphism](#polymorphism)
+  - [Static Polymorphism](#static-polymorphism)
+  - [Dynamic Polymorphism](#dynamic-polymorphism)
   - [Overriding Methods](#method-overriding)
+- [Static vs Dynamic Binding](#static-vs-dynamic-binding)
 - [Interfaces](#interfaces)
   - [Tagging Interfaces](#tagging-interfaces)
+- [Nested Classes](#nested-classes)
 - [Generics](#java-generics)
 - [Serialization](#serialization)
 - [Multithreading](#multithreading)
@@ -32,7 +28,13 @@
   - [Singleton Class](#singleton-class)
 - [`Number` Wrapper Classes](#number-wrapper-classes)
 - [Cloning Arrays](#cloning-arrays)
-
+- [Other Useful Keywords](#other-useful-keywords)
+  - [`final`](#final-keyword)
+  - [`abstract`](#abstract-keyword)
+  - [`synchronized`](#synchronized-keyword)
+  - [`transient`](#transient-keyword)
+  - [`throws`](#throws-keyword)
+  - [`volatile`](#volatile-keyword)
 
 ## Scope of Variables
 | **Local**| **Instance** | **Class/Static**  |
@@ -55,55 +57,6 @@
 - Methods declared `public` in superclass must be `public` in all subclasses
 - Methods declared `protected` in superclass must be `public` or `protected` in subclasses
 - Private methods are not inherited
-
-
-## Keywords
-### `final` Keyword
-#### Variables
-- Can be initialized only once
-- A reference variable declared `final` can never be reassigned to refer to a different object. However, the data within the object can be changed (unless it is also `final`). In other words, the state of the object can be changed, but not the reference.
-
-#### Methods
-- Cannot be overriden by subclasses
-
-#### Classes
-- Cannot be subclassed. Thus, no features can be inherited.
-
-### `abstract` Keyword
-#### Methods
-- Have no implementation. Implementation is provided by subclass.
-- Can never be `final` or `strict`
-- Any class that extends an `abstract` class must implement **all** of its `abstract` methods, unless the subclass is also `abstract`
-
-#### Classes
-- Can never be instantiated
-- Cannot be both `abstract` and `final` (there is an obvious conflict of purpose between those two keywords)
-- If a class contains `abstract` methods, the class **must** be declared as `abstract`
-- An `abstract` class may have `abstract` as well as other methods
-- An `abstract` class doesn't have to have `abstract` methods.
-
-### `synchronized` Keyword
-Indicates a method can only be accessed by one thread at a time
-
-### `transient` Keyword
-An instance variable marked as `transient` tells the JVM to skip that variable when serializing the object containing it
-
-### `throws` Keyword
-Used to postpone the handling of a checked (compile-time) exception.
-E.g.
-```java
-import java.io.*;
-public class className {
-    public void deposit(double amount) throws RemoteException, InsufficientFundsException {
-        // Method implementation ...
-        throw new RemoteException();
-    }
-    ...
-}
-```
-
-### `volatile` Keyword
-Tells the JVM that a thread accessing the variable must merge its own private copy of the variable with the master copy in memory. `volatile` can only be used on instance variables.
 
 ## Bitwise Operations
 ### Width vs. Possible Values
@@ -180,24 +133,6 @@ try (FileReader fr = new FileReader(filepath)) {
 - If checked exception, must extend `Exception`
 - If unchecked exception, must extend `RuntimeException`
 
-## Nested Classes
-Types of nested classes:
-```
-                                Nested classes
-                                      |
-                   ___________________|__________________
-                  |                                      |
-            Inner classes                      Static nested classes
-    ______________|_________________
-   |              |                 |
- Inner      Method-local        Anonymous
-classes     inner classes     inner classes
-```
-
-**Java does NOT support multiple inheritance.**  
-This means a class cannot inherit multiple classes.  
-However, a class **can** implement multiple interfaces.
-
 ## Polymorphism
 - Any object that can pass an IS-A test is polymorphic
   - All objects are polymorphic to the `Object` class
@@ -225,8 +160,62 @@ Object o = d;
 ```
 All four of these references refer to the same Deer object on the heap.
 
+### Static Polymorphism
+*Static Polymorphism* is polymorphism that is resolved at compile time. Method *overloading* is an example of static polymorphism.
+
+For example, say we have the following code:
+```java
+int add(int a, int b) {
+    return a + b;
+}
+
+int add(int a, int b, int c) {
+    return a + b + c;
+}
+
+...
+
+int x = add(1, 2);    // Calls the first add method. x = 3
+int y = add(1, 2, 3); // Calls the second add method. y = 6
+```
+
+When we make a call to the `add` function, we can tell which function will be called before even running our code, based on the type and number of our arguments. And, in fact, the compiler does just this -- it resolves which method will be called at compile time, rather than waiting until runtime.
+
+### Dynamic Polymorphism
+*Dynamic Polymorphism* is polymorphism that is resolved at runtime. Method *overriding* is an example of dynamic polymorphism.
+
+For example, consider the following code:
+```java
+class Parent {
+    public void myMethod() {
+        System.out.printline("I am the parent");
+    }
+}
+
+public class Child extends Parent {
+    public void myMethod() {
+        System.out.printline("I am the child");
+    }
+    
+    public static void main(String[] args) {
+        Parent p = new Child();
+        Child c = new Child();
+        p.myMethod(); // I am the child
+        c.myMethod(); // I am the child
+    }
+}
+```
+
+Here, we instantiate two Child objects, one using a Parent reference `p`, and the other using a Child reference `c`.
+
+While invoking `c.myMethod()`, the compiler sees `myMethod()` in the `Child` class at compile time, and the JVM invokes `myMethod()` in the `Child` class at run time.
+
+`myMethod()` on `p` is quite different because `p` is a Parent reference. When the compiler sees `p.myMethod()`, the compiler sees the `myMethod()` method in the `Parent` class.  Here, at compile time, the compiler used `myMethod()` in `Parent` to validate this statement. At run time, however, the JVM invokes `myMethod()` in the `Child` class.
+
+This behavior is also referred to as **virtual method invocation**, and these methods are referred to as **virtual methods**. An overriding method is invoked at runtime, no matter the data type the reference is that was used in the source code at compile time.
+
 ### Method Overriding
-Rules for overriding methods (NOT overloading!)
+Rules for *overriding* methods (**NOT** overloading!)
 - The argument list must be the same
 - The return type must be the same or a subtype of the return type declared in the overriden method
 - The access level cannot be more restrictive than the overidden method's
@@ -235,6 +224,13 @@ Rules for overriding methods (NOT overloading!)
 - A `static` method can be redeclared, but not overridden
 - If a method cannot be inherited, it cannot be overriden
 - Constructors cannot be overriden
+
+---------------------------------
+
+For more information, see [Static vs Dynamic Binding](#static-vs-dynamic-binding).
+
+## Static vs Dynamic Binding
+
 
 ## Interfaces
 An interface may have abstract methods, default methods, static methods, constants, and nested types. Method bodies exist only for default and static methods.
@@ -266,6 +262,24 @@ Thus, an interface with no methods is a **tagging interface**.
 These have two basic design purposes:  
 1. Creates a common parent
 2. Adds a data type to a class. A class that implements a tagging interface becomes an interface type through polymorphism
+
+## Nested Classes
+Types of nested classes:
+```
+                                Nested classes
+                                      |
+                   ___________________|__________________
+                  |                                      |
+            Inner classes                      Static nested classes
+    ______________|_________________
+   |              |                 |
+ Inner      Method-local        Anonymous
+classes     inner classes     inner classes
+```
+
+**Java does NOT support multiple inheritance.**  
+This means a class cannot inherit multiple classes.  
+However, a class **can** implement multiple interfaces.
 
 ## Java Generics
 ```java
@@ -446,7 +460,6 @@ Example usage:
 Singleton tmp = Singleton.getInstance();
 tmp.demoMethod();
 ```
-    
 
 ## `Number` Wrapper Classes
 ```
@@ -476,3 +489,52 @@ int[] dest = orig.clone();
 Long story short, it seems the first method may be quicker on shorter arrays, but on larger datasets they have similar performance. Furthermore, `clone()` is much more compact and easy to read. Thus, tend to prefer `clone()`.
 
 For more information, see [this article](https://www.javaspecialists.eu/archive/Issue124.html).
+
+## Other Useful Keywords
+### `final` Keyword
+#### Variables
+- Can be initialized only once
+- A reference variable declared `final` can never be reassigned to refer to a different object. However, the data within the object can be changed (unless it is also `final`). In other words, the state of the object can be changed, but not the reference.
+
+#### Methods
+- Cannot be overriden by subclasses
+
+#### Classes
+- Cannot be subclassed. Thus, no features can be inherited.
+
+### `abstract` Keyword
+#### Methods
+- Have no implementation. Implementation is provided by subclass.
+- Can never be `final` or `strict`
+- Any class that extends an `abstract` class must implement **all** of its `abstract` methods, unless the subclass is also `abstract`
+
+#### Classes
+- Can never be instantiated
+- Cannot be both `abstract` and `final` (there is an obvious conflict of purpose between those two keywords)
+- If a class contains `abstract` methods, the class **must** be declared as `abstract`
+- An `abstract` class may have `abstract` as well as other methods
+- An `abstract` class doesn't have to have `abstract` methods.
+
+### `synchronized` Keyword
+Indicates a method can only be accessed by one thread at a time
+
+### `transient` Keyword
+An instance variable marked as `transient` tells the JVM to skip that variable when serializing the object containing it
+
+### `throws` Keyword
+Used to postpone the handling of a checked (compile-time) exception.
+E.g.
+```java
+import java.io.*;
+public class className {
+    public void deposit(double amount) throws RemoteException, InsufficientFundsException {
+        // Method implementation ...
+        throw new RemoteException();
+    }
+    ...
+}
+```
+
+### `volatile` Keyword
+Tells the JVM that a thread accessing the variable must merge its own private copy of the variable with the master copy in memory. `volatile` can only be used on instance variables.
+
