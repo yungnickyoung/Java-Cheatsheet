@@ -586,5 +586,6 @@ public class className {
 ```
 
 ### `volatile` Keyword
-Tells the JVM that a thread accessing the variable must merge its own private copy of the variable with the master copy in memory. `volatile` can only be used on instance variables.
+Tells the JVM that a thread accessing the variable must merge its own private copy of the variable with the master copy in memory. `volatile` can only be used on instance variables.  
+See [this fantastic post](http://tutorials.jenkov.com/java-concurrency/volatile.html) for more information.
 
