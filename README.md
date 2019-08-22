@@ -511,6 +511,11 @@ Singleton tmp = Singleton.getInstance();
 tmp.demoMethod();
 ```
 
+Some useful posts on the variations of the Singleton pattern in Java:
+- [Singletons in Java - Baeldung](https://www.baeldung.com/java-singleton)
+- [Double-Checked Locking with Singleton](https://www.baeldung.com/java-singleton-double-checked-locking)
+- [Java Singleton Design Pattern Best Practices with Examples](https://www.journaldev.com/1377/java-singleton-design-pattern-best-practices-examples)
+
 ## `Number` Wrapper Classes
 ```
                    Number
