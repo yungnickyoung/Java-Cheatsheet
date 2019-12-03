@@ -37,6 +37,7 @@
   - [`volatile`](#volatile-keyword)
 
 ## Scope of Variables
+
 | **Local**| **Instance** | **Class/Static**  |
 |---|---|---|
 | Declared in methods, constructors, or blocks| Declared in a class, but outside a method/block | Same as instance, but with `static` keyword |
@@ -45,6 +46,7 @@
 | No default values. | Have default values. | Have default values. |
 
 ## Access Modifiers and Visibility
+
 | N/A | Public| Protected | Default | Private |
 |:---:|:---:|:---:|:---:|:---:|
 | Same Class                     | Y | Y | Y | Y |
