@@ -38,7 +38,7 @@
 
 ## Scope of Variables
 | **Local**| **Instance** | **Class/Static**  |
-| --- |---|---|
+|---|---|---|
 | Declared in methods, constructors, or blocks| Declared in a class, but outside a method/block | Same as instance, but with `static` keyword |
 | Created when block is entered, destroyed upon block exit | Created when an object is created (`new`). When space is allocated for a block on the heap, a slot for each instance var is created. | Created when program starts, destroyed when program ends. |
 | No access modifiers | Access modifiers OK. Visible to all methods & constructors in class. | Access modifiers OK. Visible to all methods & constructors in class. |
