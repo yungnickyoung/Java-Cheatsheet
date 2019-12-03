@@ -45,7 +45,7 @@
 | No default values. | Have default values. | Have default values. |
 
 ## Access Modifiers and Visibility
-|  | Public| Protected | Default | Private |
+| N/A | Public| Protected | Default | Private |
 |:---:|:---:|:---:|:---:|:---:|
 | Same Class                     | Y | Y | Y | Y |
 | Same Package Subclass          | Y | Y | Y | N |
