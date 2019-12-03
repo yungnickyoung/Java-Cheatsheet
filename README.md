@@ -36,7 +36,7 @@
   - [`throws`](#throws-keyword)
   - [`volatile`](#volatile-keyword)
 
-## Scope of Variables
+## Scope of Variables <sup><sub>[▲](#table-of-contents)</sub></sup>
 
 | **Local**| **Instance** | **Class/Static**  |
 |---|---|---|
@@ -45,7 +45,7 @@
 | No access modifiers | Access modifiers OK. Visible to all methods & constructors in class. | Access modifiers OK. Visible to all methods & constructors in class. |
 | No default values. | Have default values. | Have default values. |
 
-## Access Modifiers and Visibility
+## Access Modifiers and Visibility <sup><sub>[▲](#table-of-contents)</sub></sup>
 
 | N/A | Public| Protected | Default | Private |
 |:---:|:---:|:---:|:---:|:---:|
@@ -60,7 +60,7 @@
 - Methods declared `protected` in superclass must be `public` or `protected` in subclasses
 - Private methods are not inherited
 
-## Bitwise Operations
+## Bitwise Operations <sup><sub>[▲](#table-of-contents)</sub></sup>
 ### Width vs. Possible Values
 The number of bits used (width) determines the numbers that can be encoded: 2^n total.
 - Unsigned: 0 through 2^n - 1
@@ -109,7 +109,7 @@ c = 1111 1110
   - a = a ^ b
   - E.g. a = 2, b = 3; a = 0010, b = 0011
 
-## Exceptions
+## Exceptions <sup><sub>[▲](#table-of-contents)</sub></sup>
 Three types:
 1. **Checked Exceptions:** Notified by the compiler at compile-time
 2. **Unchecked Exceptions:** Runtime Exceptions
@@ -135,7 +135,7 @@ try (FileReader fr = new FileReader(filepath)) {
 - If checked exception, must extend `Exception`
 - If unchecked exception, must extend `RuntimeException`
 
-## Polymorphism
+## Polymorphism <sup><sub>[▲](#table-of-contents)</sub></sup>
 - Any object that can pass an IS-A test is polymorphic
   - All objects are polymorphic to the `Object` class
 - Objects can **only** be accessed through reference variables
@@ -231,7 +231,7 @@ Rules for *overriding* methods (**NOT** overloading!)
 
 For more information, see [Static vs Dynamic Binding](#static-vs-dynamic-binding).
 
-## Static vs Dynamic Binding
+## Static vs Dynamic Binding <sup><sub>[▲](#table-of-contents)</sub></sup>
 Association of a method call to a method body is known as **binding**. There are two types of binding:
 1. **Static Binding** (aka Early Binding): Binding resolved at compile time
 2. **Dynamic Binding** (aka Late Binding): Binding resolved at run time
@@ -284,7 +284,7 @@ class Boy extends Human {
 
 Note that, as detailed in the [Polymorphism](#polymorphism) section, the binding of *overloaded* methods is static, while the binding of *overridden* methods is dynamic.
 
-## Interfaces
+## Interfaces <sup><sub>[▲](#table-of-contents)</sub></sup>
 An interface may have abstract methods, default methods, static methods, constants, and nested types. Method bodies exist only for default and static methods.
 
 An interface contains behaviors that a class implements. All methods of an interface must be defined in the implementing class, unless the class itself is abstract.
@@ -315,7 +315,7 @@ These have two basic design purposes:
 1. Creates a common parent
 2. Adds a data type to a class. A class that implements a tagging interface becomes an interface type through polymorphism
 
-## Nested Classes
+## Nested Classes <sup><sub>[▲](#table-of-contents)</sub></sup>
 Types of nested classes:
 ```
                                 Nested classes
@@ -333,7 +333,7 @@ classes     inner classes     inner classes
 This means a class cannot inherit multiple classes.  
 However, a class **can** implement multiple interfaces.
 
-## Java Generics
+## Java Generics <sup><sub>[▲](#table-of-contents)</sub></sup>
 ```java
 public static <E> void printArray(E[] array) {
     for (E element : array)
@@ -361,7 +361,7 @@ public class Box<T> {
  }
  ```
 
-## Serialization
+## Serialization <sup><sub>[▲](#table-of-contents)</sub></sup>
 Serialization allows an object to be represented as a sequence of bytes that includes the object's data as well as info about the object's type and the types of data stored in the object.
 
 After a serialized object has been written to a file, it can be read from the file and deserialized to recreate the object in memory.
@@ -396,7 +396,7 @@ try {
 ```
 The return value of `readObject()` should be cast to the proper class.
 
-## Multithreading
+## Multithreading <sup><sub>[▲](#table-of-contents)</sub></sup>
 Lifecycle of a thread:
 - **New:** a new thread begins in this state where it remains until the program starts the thread
 - **Runnable:** executing its task
@@ -435,7 +435,7 @@ All three methods can **only** be called from within a `synchronized` context.
 #### Thread Deadlock
 Situation where two or more threads are blocked forever, waiting for each other. Occurs when multiple threads need the same locks, but obtain them in a different order. Obviously, we want to **avoid this!**
 
-## Java Collections Framework
+## Java Collections Framework <sup><sub>[▲](#table-of-contents)</sub></sup>
 ### Overview
 ![alt text](https://media.geeksforgeeks.org/wp-content/uploads/java-collection.jpg "Java Collections Framework")
 
@@ -493,7 +493,7 @@ The figure below summaries many of these differences.
 
 Generally, you'll want to use an `ArrayList`; in the single-threaded case it's a better choice, and in the multi-threaded case, you get better control over locking. Want to allow concurrent reads? Fine. Want to perform one synchronization for a batch of ten writes? Also fine. It does require a little more care on your end, but it's likely what you want. Also note that if you have an `ArrayList`, you can use the [`Collections.synchronizedList`](https://docs.oracle.com/javase/8/docs/api/java/util/Collections.html#synchronizedList-java.util.List-) function to create a synchronized list, thus getting you the equivalent of a `Vector`.
 
-## Common Design Patterns
+## Common Design Patterns <sup><sub>[▲](#table-of-contents)</sub></sup>
 ### Singleton Class
 Controls object creation, limiting # of objects to only one. Since there is only one instance, instance fields will occur once per class, similar to static fields.  
 Singletons often control access to resources like database connections or sockets.  
@@ -518,7 +518,7 @@ Some useful posts on the variations of the Singleton pattern in Java:
 - [Double-Checked Locking with Singleton](https://www.baeldung.com/java-singleton-double-checked-locking)
 - [Java Singleton Design Pattern Best Practices with Examples](https://www.journaldev.com/1377/java-singleton-design-pattern-best-practices-examples)
 
-## `Number` Wrapper Classes
+## `Number` Wrapper Classes <sup><sub>[▲](#table-of-contents)</sub></sup>
 ```
                    Number
                      |
@@ -530,7 +530,7 @@ Byte  Integer  Double  Short  Float  Long
 Converting primitive data types into objects is called **boxing**.  
 Similarly, the reverse operation is called **unboxing**.
 
-## Cloning Arrays
+## Cloning Arrays <sup><sub>[▲](#table-of-contents)</sub></sup>
 Two methods of copying an array are using `System.arraycopy()` and `clone()`.  
 An example of `System.arraycopy()`:
 ```java
@@ -547,7 +547,7 @@ Long story short, it seems the first method may be quicker on shorter arrays, bu
 
 For more information, see [this article](https://www.javaspecialists.eu/archive/Issue124.html).
 
-## Other Useful Keywords
+## Other Useful Keywords <sup><sub>[▲](#table-of-contents)</sub></sup>
 ### `final` Keyword
 #### Variables
 - Can be initialized only once
