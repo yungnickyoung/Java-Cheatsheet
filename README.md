@@ -85,32 +85,37 @@ c = 1111 1110
 
 | Operation | Function | Example |
 |:---:|:---:|---|
-| &   |AND                            | a&b = 0000 1100 (12) |
-| \|  |OR                             | a\|b = 0011 1101 (61) |
-| ^   |XOR                            | a^b = 0011 0001 (49) |
-| ~   |Complement (bitwise inversion) | ~a = 1100 0011 (-61 in 2's complement) |
-| <<  |Left shift                     | a << 2 = 1111 0000 (-16 in 2's complement) |
-| >>  |Arithmetic shift right         | c >> 2 = 1111 1111 (-1) |
-| >>> |Logical shift right (zero-fill)| c >>> 2 = 0111 1111 (127) |
+| `&`   |AND                            | `a&b` = `0000 1100 (12)` |
+| `\|`  |OR                             | `a\|b` = `0011 1101 (61)` |
+| `^`   |XOR                            | `a^b` = `0011 0001 (49)` |
+| `~`   |Complement (bitwise inversion) | `~a` = `1100 0011 (-61 in 2's complement)` |
+| `<<`  |Left shift                     | `a << 2` = `1111 0000 (-16 in 2's complement)` |
+| `>>`  |Arithmetic shift right         | `c >> 2` = `1111 1111 (-1)` |
+| `>>>` |Logical shift right (zero-fill)| `c >>> 2` = `0111 1111 (127)` |
 
 ### Useful Tricks
-- **XOR**
-  - x ^ 0 = x
-  - x ^ 1 = ~x
-  - x ^ x = 0
-- **AND**
-  - x & 0 = 0
-  - x & 1 = x
-  - x & x = x
-- **OR**
-  - x \| 0 = x
-  - x \| 1 = 1
-  - x \| x = x
-- Swapping two values without a temporary variable:
-  - a = a ^ b
-  - b = a ^ b
-  - a = a ^ b
-  - E.g. a = 2, b = 3; a = 0010, b = 0011
+- Note that in the following examples, x, 0, and 1 refer to a single bit, not a multi-bit integer
+  - **XOR**
+    - x ^ 0 = x
+    - x ^ 1 = ~x
+      - For a multi-bit integer n, n ^ -1 = ~n. This works because -1 in 2's complement is represented as 11111111..., so each bit gets XOR'd with 1
+    - x ^ x = 0
+  - **AND**
+    - x & 0 = 0
+    - x & 1 = x
+      - For a multi-bit integer n, n & -1 = n. This works because -1 in 2's complement is represented as 11111111..., so each bit gets AND'd with 1
+    - x & x = x
+  - **OR**
+    - x \| 0 = x
+    - x \| 1 = 1
+    - x \| x = x
+- Swapping two values without a temporary variable
+  ```
+  // E.g. a = 2 (0b0010), b = 5 (0b0101)
+  a = a ^ b    // a = 7 (0b0111)
+  b = a ^ b    // b = 2 (0b0010)
+  a = a ^ b    // a = 5 (0b0101)
+  ```
 
 <sup><sub>[▲ TOP](#table-of-contents)</sub></sup>
 ## Exceptions
