@@ -570,6 +570,7 @@ For more information, see [this article](https://www.javaspecialists.eu/archive/
 <sup><sub>[▲ TOP](#table-of-contents)</sub></sup>
 ## Other Useful Keywords
 ### `final` Keyword
+Can be applied to variables, methods, and classes.
 #### Variables
 - Can be initialized only once
 - A reference variable declared `final` can never be reassigned to refer to a different object. However, the data within the object can be changed (unless it is also `final`). In other words, the state of the object can be changed, but not the reference.
@@ -581,6 +582,7 @@ For more information, see [this article](https://www.javaspecialists.eu/archive/
 - Cannot be subclassed. Thus, no features can be inherited.
 
 ### `abstract` Keyword
+Can be applied to both methods and classes.
 #### Methods
 - Have no implementation. Implementation is provided by subclass.
 - Can never be `final` or `strict`
@@ -594,7 +596,9 @@ For more information, see [this article](https://www.javaspecialists.eu/archive/
 - An `abstract` class doesn't have to have `abstract` methods.
 
 ### `synchronized` Keyword
-Indicates a method can only be accessed by one thread at a time
+Indicates a block of code that can only be executed by one thread at a time. Can be applied to methods or independent blocks.
+
+A synchronized block can specify an object to use as a lock. This object is referred to as a "monitor" object.
 
 ### `transient` Keyword
 An instance variable marked as `transient` tells the JVM to skip that variable when serializing the object containing it
@@ -604,8 +608,8 @@ Used to postpone the handling of a checked (compile-time) exception.
 E.g.
 ```java
 import java.io.*;
-public class className {
-    public void deposit(double amount) throws RemoteException, InsufficientFundsException {
+public class MyClass {
+    public void deposit(double amount) throws RemoteException {
         // Method implementation ...
         throw new RemoteException();
     }
@@ -614,6 +618,11 @@ public class className {
 ```
 
 ### `volatile` Keyword
-Tells the JVM that a thread accessing the variable must merge its own private copy of the variable with the master copy in memory. `volatile` can only be used on instance variables.  
-See [this fantastic post](http://tutorials.jenkov.com/java-concurrency/volatile.html) for more information.
+Tells the JVM that a thread accessing the variable must merge its own private copy of the variable with the master copy in memory. In technical terms, any variable marked as volatile will only ever be read from & written to main memory, bypassing any CPU caching.
+
+If a variable is not declared `volatile`, we have no guarantee about when exactly the master copy will be accessed or modified. This can subtly cause problems in multithreaded applications that may be difficult to debug. 
+
+`volatile` can only be used on instance variables.
+
+See [this fantastic post](http://tutorials.jenkov.com/java-concurrency/volatile.html) or the [accompanying video](https://www.youtube.com/watch?v=nhYIEqt-jvY&ab_channel=JakobJenkov) for more information.
 
