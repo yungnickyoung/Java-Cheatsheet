@@ -600,6 +600,8 @@ Indicates a block of code that can only be executed by one thread at a time. Can
 
 A synchronized block can specify an object to use as a lock. This object is referred to as a "monitor" object.
 
+See [this post](http://tutorials.jenkov.com/java-concurrency/synchronized.html) or the [accompanying video](https://youtu.be/eKWjfZ-TUdo) for more information.
+
 ### `transient` Keyword
 An instance variable marked as `transient` tells the JVM to skip that variable when serializing the object containing it
 
